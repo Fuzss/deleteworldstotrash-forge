@@ -5,9 +5,10 @@
   "package": "fuzs.deleteworldstotrash.mixin",
   "refmap": "META-INF/deleteworldstotrash.refmap.json",
   "mixins": [
-    "LevelStorageAccessMixin"
   ],
   "client": [
+    "client.LevelStorageAccessMixin",
+    "client.accessor.ConfirmScreenAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

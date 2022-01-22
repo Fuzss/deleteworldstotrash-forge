@@ -1,6 +1,6 @@
-package fuzs.deleteworldstotrash.mixin;
+package fuzs.deleteworldstotrash.mixin.client;
 
-import fuzs.deleteworldstotrash.world.level.storage.WorldToTrashUtil;
+import fuzs.deleteworldstotrash.world.level.storage.WorldTrashUtil;
 import net.minecraft.util.DirectoryLock;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import org.spongepowered.asm.mixin.Final;
@@ -28,7 +28,7 @@ public abstract class LevelStorageAccessMixin {
 
     @Inject(method = "deleteLevel", at = @At("HEAD"), cancellable = true)
     public void deleteLevel(CallbackInfo callbackInfo) {
-        if (WorldToTrashUtil.tryMoveToTrash(this.lock, this.levelPath, this::checkLock)) {
+        if (WorldTrashUtil.tryMoveToTrash(this.lock, this.levelPath, this::checkLock)) {
             callbackInfo.cancel();
         }
     }

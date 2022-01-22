@@ -10,7 +10,7 @@ import net.minecraft.util.DirectoryLock;
 import java.nio.file.Path;
 import java.util.List;
 
-public class WorldToTrashUtil {
+public class WorldTrashUtil {
     private static final List<WorldRecycler> SUPPORTED_RECYCLERS;
 
     static {
@@ -38,5 +38,9 @@ public class WorldToTrashUtil {
         }
         DeleteWorldsToTrash.LOGGER.warn("Definitively failed to move world to trash {}", levelPath);
         return false;
+    }
+
+    public static boolean isTrashSupported() {
+        return SUPPORTED_RECYCLERS.stream().anyMatch(WorldRecycler::isSupported);
     }
 }
