@@ -1,8 +1,8 @@
 package fuzs.deleteworldstotrash.mixin.client;
 
 import fuzs.deleteworldstotrash.world.level.storage.WorldTrashUtil;
-import net.minecraft.util.DirectoryLock;
-import net.minecraft.world.level.storage.LevelStorageSource;
+import net.minecraft.server.SessionLockManager;
+import net.minecraft.world.storage.SaveFormat;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.file.Path;
 
-@Mixin(LevelStorageSource.LevelStorageAccess.class)
-public abstract class LevelStorageAccessMixin {
+@Mixin(SaveFormat.LevelSave.class)
+public abstract class LevelSaveMixin {
     @Shadow
     @Final
-    DirectoryLock lock;
+    SessionLockManager lock;
     @Shadow
     @Final
     Path levelPath;

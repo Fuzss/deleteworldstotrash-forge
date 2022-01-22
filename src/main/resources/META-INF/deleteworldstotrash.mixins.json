@@ -1,13 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_8",
   "package": "fuzs.deleteworldstotrash.mixin",
   "refmap": "META-INF/deleteworldstotrash.refmap.json",
   "mixins": [
   ],
   "client": [
-    "client.LevelStorageAccessMixin",
+    "client.LevelSaveMixin",
     "client.accessor.ConfirmScreenAccessor"
   ],
   "injectors": {

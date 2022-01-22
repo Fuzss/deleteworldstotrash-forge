@@ -2,27 +2,27 @@ package fuzs.deleteworldstotrash.client.handler;
 
 import fuzs.deleteworldstotrash.mixin.client.accessor.ConfirmScreenAccessor;
 import fuzs.deleteworldstotrash.world.level.storage.WorldTrashUtil;
-import net.minecraft.Util;
-import net.minecraft.client.gui.screens.ConfirmScreen;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.client.event.ScreenOpenEvent;
+import net.minecraft.client.gui.DialogTexts;
+import net.minecraft.client.gui.screen.ConfirmScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class TrashScreenHandler {
-    private static final Component RECYCLE_BIN_COMPONENT = new TranslatableComponent("deleteworldstotrash.selectWorld.recycleBin");
-    private static final Component TRASH_COMPONENT = new TranslatableComponent("deleteworldstotrash.selectWorld.trash");
-    private static final Component RECYCLE_BIN_BUTTON_COMPONENT = new TranslatableComponent("deleteworldstotrash.selectWorld.recycleBinButton");
-    private static final Component TRASH_BUTTON_COMPONENT = new TranslatableComponent("deleteworldstotrash.selectWorld.trashButton");
+    private static final ITextComponent RECYCLE_BIN_COMPONENT = new TranslationTextComponent("deleteworldstotrash.selectWorld.recycleBin");
+    private static final ITextComponent TRASH_COMPONENT = new TranslationTextComponent("deleteworldstotrash.selectWorld.trash");
+    private static final ITextComponent RECYCLE_BIN_BUTTON_COMPONENT = new TranslationTextComponent("deleteworldstotrash.selectWorld.recycleBinButton");
+    private static final ITextComponent TRASH_BUTTON_COMPONENT = new TranslationTextComponent("deleteworldstotrash.selectWorld.trashButton");
 
     @SubscribeEvent
-    public void onScreenOpen(final ScreenOpenEvent evt) {
-        final Screen screen = evt.getScreen();
+    public void onScreenOpen(final GuiOpenEvent evt) {
+        final Screen screen = evt.getGui();
         if (screen instanceof ConfirmScreen && WorldTrashUtil.isTrashSupported()) {
-            if (screen.getTitle() instanceof TranslatableComponent title1 && title1.getKey().equals("selectWorld.deleteQuestion") && ((ConfirmScreenAccessor) screen).getTitle2() instanceof TranslatableComponent title2) {
-                evt.setScreen(new ConfirmScreen(((ConfirmScreenAccessor) screen).getCallback(), title1, new TranslatableComponent("deleteworldstotrash.selectWorld.deleteWarning", title2.getArgs()[0], hasRecycleBin() ? RECYCLE_BIN_COMPONENT : TRASH_COMPONENT), new TranslatableComponent("deleteworldstotrash.selectWorld.deleteButton", hasRecycleBin() ? RECYCLE_BIN_BUTTON_COMPONENT : TRASH_BUTTON_COMPONENT), CommonComponents.GUI_CANCEL));
+            if (screen.getTitle() instanceof TranslationTextComponent && ((TranslationTextComponent) screen.getTitle()).getKey().equals("selectWorld.deleteQuestion") && ((ConfirmScreenAccessor) screen).getTitle2() instanceof TranslationTextComponent) {
+                evt.setGui(new ConfirmScreen(((ConfirmScreenAccessor) screen).getCallback(), screen.getTitle(), new TranslationTextComponent("deleteworldstotrash.selectWorld.deleteWarning", ((TranslationTextComponent) ((ConfirmScreenAccessor) screen).getTitle2()).getArgs()[0], hasRecycleBin() ? RECYCLE_BIN_COMPONENT : TRASH_COMPONENT), new TranslationTextComponent("deleteworldstotrash.selectWorld.deleteButton", hasRecycleBin() ? RECYCLE_BIN_BUTTON_COMPONENT : TRASH_BUTTON_COMPONENT), DialogTexts.GUI_CANCEL));
             }
         }
     }

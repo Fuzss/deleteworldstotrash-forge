@@ -2,10 +2,9 @@ package fuzs.deleteworldstotrash.world.level.storage;
 
 import com.google.common.collect.ImmutableList;
 import fuzs.deleteworldstotrash.DeleteWorldsToTrash;
-import fuzs.deleteworldstotrash.world.level.storage.recycler.DesktopRecycler;
 import fuzs.deleteworldstotrash.world.level.storage.recycler.FileUtilsRecycler;
 import fuzs.deleteworldstotrash.world.level.storage.recycler.WorldRecycler;
-import net.minecraft.util.DirectoryLock;
+import net.minecraft.server.SessionLockManager;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -15,11 +14,11 @@ public class WorldTrashUtil {
 
     static {
         SUPPORTED_RECYCLERS = new ImmutableList.Builder<WorldRecycler>()
-                .add(new FileUtilsRecycler(), new DesktopRecycler())
+                .add(new FileUtilsRecycler())
                 .build();
     }
 
-    public static boolean tryMoveToTrash(DirectoryLock lock, Path levelPath, Runnable checkLock) {
+    public static boolean tryMoveToTrash(SessionLockManager lock, Path levelPath, Runnable checkLock) {
         for (WorldRecycler recycler : SUPPORTED_RECYCLERS) {
             if (recycler.isSupported()) {
                 checkLock.run();

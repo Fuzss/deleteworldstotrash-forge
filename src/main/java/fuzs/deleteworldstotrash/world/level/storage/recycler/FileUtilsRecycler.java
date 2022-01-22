@@ -17,7 +17,7 @@ public class FileUtilsRecycler implements WorldRecycler {
 
     @Override
     public boolean moveToTrash(File file) throws IOException {
-        FileUtils.getInstance().moveToTrash(file);
+        FileUtils.getInstance().moveToTrash(new File[]{file});
         return true;
     }
 }
