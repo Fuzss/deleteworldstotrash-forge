@@ -29,7 +29,7 @@ public class WorldTrashUtil {
                         if (recycler.moveToTrash(levelPath.toFile())) {
                             return true;
                         }
-                    } catch (Exception e) {
+                    } catch (Throwable e) {
                         DeleteWorldsToTrash.LOGGER.warn("Failed to move world to trash {}", levelPath, e);
                     }
                 }
